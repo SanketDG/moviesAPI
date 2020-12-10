@@ -12,21 +12,52 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    """
-    MovieSerializer for serializing into a Movie model.
 
-    The only obstacle is that the genre field serializer expects a dict-like
-    structure, so for each genre, we need to account that there
-    is a whole string value and not a dict.
-
-    This is handled in to_representation where the dict is created for each
-    serialization.
-    """
     genre = GenreSerializer(many=True)
 
     class Meta:
         model = Movie
-        fields = ["name", "director", "genre", "imdb_score", "popularity"]
+        fields = ["id", "name", "director", "genre", "imdb_score", "popularity"]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["genre"] = [genre.name for genre in instance.genre.all()]
+        return data
+
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        data["genre"] = [{"name": genre} for genre in data["genre"]]
+        return data
+
+class MovieCreateSerializer(serializers.ModelSerializer):
+    """
+    This is the Serializer used for creating a Movie object.
+
+    Since the genre field is a nested object, the `create` and `update` methods
+    have been overridden.
+    """
+    genre = serializers.ListField(write_only=True, child=serializers.CharField())
+
+    class Meta:
+        model = Movie
+        fields = ["id", "name", "director", "genre", "imdb_score", "popularity"]
+
+    def create(self, validated_data):
+        genre_data = validated_data.pop("genre")
+        movie, _ = Movie.objects.get_or_create(**validated_data)
+        for genre in genre_data:
+            genre, _ = Genre.objects.get_or_create(name=genre)
+            movie.genre.add(genre)
+        return movie
+
+    def update(self, instance, validated_data):
+        genre_data = validated_data.pop("genre")
+        Movie.objects.filter(pk=instance.id).update(**validated_data)
+
+        for genre in genre_data:
+            genre, _ = Genre.objects.get_or_create(name=genre)
+            instance.genre.add(genre)
+        return Movie.objects.get(pk=instance.id)
 
     def to_representation(self, instance):
         """
