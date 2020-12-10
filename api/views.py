@@ -39,9 +39,8 @@ def search_movies(request):
     Search movies by query on name, director or genre
     """
     search_query = request.GET.get("q", None)
-    print(search_query)
     if search_query is not None:
-        print(search_query)
+
         search_results = Movie.objects.filter(
             Q(name__icontains=search_query)
             | Q(director__icontains=search_query)
