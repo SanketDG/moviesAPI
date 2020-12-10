@@ -12,7 +12,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-
+    """This is the serializer for displaying a Movie model"""
     genre = GenreSerializer(many=True)
 
     class Meta:
