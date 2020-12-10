@@ -4,6 +4,11 @@
 
 ### Indexing
 
+Since there are lots of users, there will be lots of movies
+created. Hence the GET and SEARCH results will involve fetching a lot of data.
+This can be sped up by using indexes on the rows that will be used the most
+during retrieving, searching.
+
 ### Replication
 
 The database itself can have a single leader database solely for writes, and N

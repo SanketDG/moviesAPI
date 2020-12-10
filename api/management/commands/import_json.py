@@ -22,11 +22,11 @@ class Command(BaseCommand):
                     movie["popularity"] = movie["99popularity"]
                     movie.pop("99popularity")
                     movie_obj, _ = Movie.objects.get_or_create(**movie)
-                    movie_obj.save()
 
                     for genre in genre_dict:
                         genre_obj, _ = Genre.objects.get_or_create(name=genre.strip())
                         movie_obj.genre.add(genre_obj)
+                    movie_obj.save()
 
             self.stdout.write(self.style.SUCCESS('JSON File imported'))
             return None
