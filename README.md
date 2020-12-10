@@ -27,15 +27,19 @@ Username: admin
 Password: fynd1234
 ```
 
-To create/update a movie:
+To create a movie:
 
 ```
 http -a admin:fynd1234 POST https://blooming-thicket-80739.herokuapp.com/movies/ name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.3 popularity=99
 ```
 
-Note: Replace `POST` with `PUT` or `PATCH` to replace objects
+To update a movie:
 
-The json body
+```
+http -a admin:fynd1234 PUT https://blooming-thicket-80739.herokuapp.com/movies/<id> name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.5 popularity=99
+```
+
+The json body (for Postman and other tools)
 
 ```json
 {
