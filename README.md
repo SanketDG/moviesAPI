@@ -1,6 +1,6 @@
 # Movies API
 
-This API is hosted on Heroku at
+This API is hosted on Heroku at https://blooming-thicket-80739.herokuapp.com/movies/
 
 Test the API:
 
@@ -20,7 +20,7 @@ http GET https://blooming-thicket-80739.herokuapp.com/movies/<id>
 
 ---
 
-_For the following operations, One would also have to be an administrator, I have created a administrator account_
+_For the following operations, One would also have to be an administrator, I have created a administrator account for the heroku deployment_.
 
 ```
 Username: admin
@@ -56,5 +56,3 @@ To delete a Movie
 ```
 http -a admin:fynd1234 DELETE https://blooming-thicket-80739.herokuapp.com/movies/<id>
 ```
-
-To update a Movie
