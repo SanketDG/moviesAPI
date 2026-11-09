@@ -20,23 +20,18 @@ http GET https://blooming-thicket-80739.herokuapp.com/movies/<id>
 
 ---
 
-_For the following operations, One would also have to be an administrator, I have created a administrator account for the heroku deployment_.
-
-```
-Username: admin
-Password: fynd1234
-```
+_For the following operations, one also has to be an administrator. Create an admin account on your own deployment with `python manage.py createsuperuser`, then use its username and password below._
 
 To create a movie:
 
 ```
-http -a admin:fynd1234 POST https://blooming-thicket-80739.herokuapp.com/movies/ name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.3 popularity=99
+http -a <username>:<password> POST https://blooming-thicket-80739.herokuapp.com/movies/ name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.3 popularity=99
 ```
 
 To update a movie:
 
 ```
-http -a admin:fynd1234 PUT https://blooming-thicket-80739.herokuapp.com/movies/<id> name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.5 popularity=99
+http -a <username>:<password> PUT https://blooming-thicket-80739.herokuapp.com/movies/<id> name=Titanic genre:='["Drama"]' director="James Cameron" imdb_score=8.5 popularity=99
 ```
 
 The json body (for Postman and other tools)
@@ -54,5 +49,5 @@ The json body (for Postman and other tools)
 To delete a Movie
 
 ```
-http -a admin:fynd1234 DELETE https://blooming-thicket-80739.herokuapp.com/movies/<id>
+http -a <username>:<password> DELETE https://blooming-thicket-80739.herokuapp.com/movies/<id>
 ```
